@@ -1,61 +1,21 @@
-Mixpanel Data Export
-====================
+# node-mixpanel-export
 
-Simply put, this is a JavaScript library that makes [Mixpanel's data export API](https://mixpanel.com/docs/api-documentation/data-export-api#libs-js) easy to use. Simply instantiate the class with your API secret and key and then make calls to api methods and get correctly formatted data back via a promise, callback or stream.
+A lightweight node.js wrapper around [Mixpanel's data export API](https://mixpanel.com/docs/api-documentation/data-export-api#libs-js).
+
+Simply instantiate the class with your API Key and API Secret and then make calls to api methods and get correctly formatted data back via a promise, callback or stream.
 
 ## Installation
 
-**Node:**
-
 ```javascript
-var MixpanelExport = require('mixpanel-data-export');
-```
-
-**Browser:**
-
-```html
-<script src="https://npmcdn.com/mixpanel-data-export@2.0.2/dist/mixpanel_data_export.min.js"></script>
+var MixpanelExport = require('node-mixpanel-export');
 ```
 
 ## Usage Instructions
 
-Every method detailed on [mixpanel's data export api page](https://mixpanel.com/docs/api-documentation/data-export-api#libs-js) is available in the library. However, some of the namings have been adjusted to read more semantically, for example, `topEventProperties` , and `eventPropertyValues`. The full list of methods is as follows...
-
-**Annotations:**
- - `annotations(parameters)`
- - `createAnnotation(parameters)`
- - `updateAnnotation(parameters)`
- - `deleteAnnotation(parameters)`
+However, some of the namings have been adjusted to read more semantically, for example, `topEventProperties` , and `eventPropertyValues`. The full list of methods is as follows...
 
 **Export:**
- - `export(parameters)` (node only, see: https://github.com/michaelcarter/mixpanel-data-export-js/issues/3)
-
-**Events:**
- - `events(parameters)`
- - `topEvents(parameters)`
- - `eventNames(parameters)`
-
-**Event Properties:**
- - `eventProperties(parameters)`
- - `topEventProperties(parameters)`
- - `eventPropertyValues(parameters)`
-
-**Funnels:**
- - `funnels(parameters)`
- - `listFunnels(parameters)`
-
-**Segmentation:**
- - `segmentation(parameters)`
- - `numericSegmentation(parameters)`
- - `sumSegmentation(parameters)`
- - `averageSegmentation(parameters)`
-
-**Retention:**
- - `retention(parameters)`
- - `addiction(parameters)`
-
-**People Analytics:**
- - `engage(parameters)` (node only, see: https://github.com/michaelcarter/mixpanel-data-export-js/issues/6)
+ - `export(parameters)`
 
 An example usage might be:
 
@@ -89,9 +49,13 @@ result = panel.retention({
 A full list of available API methods is detailed on [mixpanel's data export api page](https://mixpanel.com/docs/api-documentation/data-export-api#libs-js). If you find any that are missing please let me know, or better yet put in a pull request.
 
 ## Undocumented Endpoints
-For any other requests (e.g. undocumented API endpoints), you can make raw requests to the API using `get`. The library will still handle all of param ordering and md5 signature stuff that the API requires, so you'll just need to supply a request type & parameters:
+For any other requests (e.g. undocumented API endpoints), you can make raw requests to the API using `get`.
 
  - `panel.get(requestType, parameters)`
 
  `requestType` expects an array forming a path to the endpoint. Taking the "top events" endpoint as an example - it's available at `http://mixpanel.com/api/2.0/events/top/`, so to request it you'd call `panel.get(['events', 'top'], parameters)`.
 
+## Acknowledgements
+
+This package is mostly work from Mike Carter on [mixpanel-data-export-js](https://github.com/michaelcarter/mixpanel-data-export-js).
+This version is focused on node.js only and getting somewhat bigger amounts of data.

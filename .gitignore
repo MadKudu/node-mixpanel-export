@@ -1,7 +1,25 @@
-tmp/*
-node_modules/*
-test/testClientConfig.js
-dist/*
-sandbox.js
-index.html
-npm-debug.log
+# Logs and databases #
+######################
+*.log
+# *.sql
+*.sqlite
+*.rdb
+
+# OS generated files #
+######################
+.DS_Store
+*/.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Node modules
+################
+/node_modules/**
+
+# Code coverage #
+###################
+coverage/**
