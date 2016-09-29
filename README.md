@@ -12,32 +12,23 @@ var MixpanelExport = require('node-mixpanel-export');
 
 ## Usage Instructions
 
-However, some of the namings have been adjusted to read more semantically, for example, `topEventProperties` , and `eventPropertyValues`. The full list of methods is as follows...
-
-**Export:**
- - `export(parameters)`
-
-An example usage might be:
-
 ```javascript
 panel = new MixpanelExport({
-  api_key: "my_api_key",
   api_secret: "my_api_secret"
 });
 
-panel.retention({
+panel.export({
   from_date: "2014-02-28",
   to_date: "2014-03-10",
-  born_event: "Rendering items"
 }).then(function(data) {
   console.log(data);
 });
 ```
 
-Callbacks are also supported:
+All methods also work with callback
 
 ```javascript
-result = panel.retention({
+result = panel.engage({
   from_date: "2014-02-28",
   to_date: "2014-03-10",
   born_event: "Rendering items"
@@ -46,14 +37,17 @@ result = panel.retention({
 });
 ```
 
-A full list of available API methods is detailed on [mixpanel's data export api page](https://mixpanel.com/docs/api-documentation/data-export-api#libs-js). If you find any that are missing please let me know, or better yet put in a pull request.
+### Supported methods
+ - `export(parameters)`
+ - `engage(parameters)`
 
-## Undocumented Endpoints
-For any other requests (e.g. undocumented API endpoints), you can make raw requests to the API using `get`.
+## Running tests
 
- - `panel.get(requestType, parameters)`
+Set your Mixpanel API_SECRET as an environment variable
 
- `requestType` expects an array forming a path to the endpoint. Taking the "top events" endpoint as an example - it's available at `http://mixpanel.com/api/2.0/events/top/`, so to request it you'd call `panel.get(['events', 'top'], parameters)`.
+```shell
+API_SECRET=XXX npm test
+```
 
 ## Acknowledgements
 

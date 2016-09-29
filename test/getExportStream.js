@@ -26,7 +26,7 @@ describe('export', function () {
         expect(string).to.be.a('string');
       })
       .on('end', done)
-      .on('error', done)
+      .on('error', done);
   });
 
 });

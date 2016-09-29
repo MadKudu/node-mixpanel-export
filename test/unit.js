@@ -20,7 +20,7 @@ describe('_buildRequestURL', function () {
     var options = {
       from_date: '2016-03-09',
       to_date: '2016-03-09'
-    }
+    };
 
     var url = panel._buildRequestURL('export', options);
     expect(url).to.equal('https://data.mixpanel.com/api/2.0/export/?from_date=2016-03-09&to_date=2016-03-09');
