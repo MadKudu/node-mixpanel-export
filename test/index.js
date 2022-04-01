@@ -17,11 +17,18 @@ describe('node-mixpanel-export', function(){
   });
   describe('_buildAPIStub', function () {
     it('should return mixpanel.com for non-EU integrations', function () {
-      var url = panel._buildAPIStub('engage', {});
+      var panelNonEu = new MixpanelExport({
+        api_secret: process.env.API_SECRET,
+      });
+      var url = panelNonEu._buildAPIStub('engage');
       expect(url).to.equal('https://mixpanel.com/api/2.0/engage/?');
     });
     it('should return eu.mixpanel.com for EU integrations', function () {
-      var url = panel._buildAPIStub('engage', { eu: true });
+      var panelEu = new MixpanelExport({
+        api_secret: process.env.API_SECRET,
+        eu: true
+      });
+      var url = panelEu._buildAPIStub('engage');
       expect(url).to.equal('https://eu.mixpanel.com/api/2.0/engage/?');
     });
   });

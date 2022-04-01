@@ -12,6 +12,7 @@ var MixpanelExport = (function () {
       throw new Error('An api_secret needs to be provided');
     }
     this.api_secret = this.opts.api_secret;
+    this.eu = this.opts.eu;
     this._requestNumber = 0;
   }
 
@@ -83,12 +84,11 @@ var MixpanelExport = (function () {
 
   MixpanelExport.prototype._buildRequestURL = function (method, parameters) {
     parameters = parameters || {};
-    return this._buildAPIStub(method, parameters) + this._getParameterString(parameters);
+    return this._buildAPIStub(method) + this._getParameterString(parameters);
   };
 
-  MixpanelExport.prototype._buildAPIStub = function (method, parameters) {
-    var eu = parameters.eu;
-    var apiStub = (method === 'export') ? 'https://data.mixpanel.com/api/2.0/' : `https://${eu ? 'eu.' : ''}mixpanel.com/api/2.0/`;
+  MixpanelExport.prototype._buildAPIStub = function (method) {
+    var apiStub = (method === 'export') ? 'https://data.mixpanel.com/api/2.0/' : `https://${this.eu ? 'eu.' : ''}mixpanel.com/api/2.0/`;
     apiStub += (typeof method.join === 'function') ? method.join('/') : method;
     apiStub += '/?';
 

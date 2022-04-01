@@ -1,6 +1,6 @@
 {
   "name": "@madkudu/node-mixpanel-export",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A lightweight SDK for the Mixpanel export API",
   "keywords": [
     "mixpanel",
