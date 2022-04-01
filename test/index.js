@@ -15,5 +15,14 @@ describe('node-mixpanel-export', function(){
     expect(panel).to.have.a.property('getExportStream');
     expect(panel).to.have.a.property('engage');
   });
-
+  describe('_buildAPIStub', function () {
+    it('should return mixpanel.com for non-EU integrations', function () {
+      var url = panel._buildAPIStub('engage', {});
+      expect(url).to.equal('https://mixpanel.com/api/2.0/engage/?');
+    });
+    it('should return eu.mixpanel.com for EU integrations', function () {
+      var url = panel._buildAPIStub('engage', { eu: true });
+      expect(url).to.equal('https://eu.mixpanel.com/api/2.0/engage/?');
+    });
+  });
 });
