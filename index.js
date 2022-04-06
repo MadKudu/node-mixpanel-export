@@ -88,7 +88,7 @@ var MixpanelExport = (function () {
   };
 
   MixpanelExport.prototype._buildAPIStub = function (method) {
-    var apiStub = (method === 'export') ? 'https://data.mixpanel.com/api/2.0/' : `https://${this.eu ? 'eu.' : ''}mixpanel.com/api/2.0/`;
+    var apiStub = (method === 'export') ? `https://data${this.eu ? '-eu' : ''}.mixpanel.com/api/2.0/` : `https://${this.eu ? 'eu.' : ''}mixpanel.com/api/2.0/`;
     apiStub += (typeof method.join === 'function') ? method.join('/') : method;
     apiStub += '/?';
 
