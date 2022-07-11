@@ -26,21 +26,21 @@
   ],
   "scripts": {
     "test": "npm run-script lint && npm run-script mocha",
-    "mocha": "./node_modules/mocha/bin/mocha test/**",
-    "lint": "./node_modules/eslint/bin/eslint.js lib/ ./node_modules/eslint/bin/eslint.js test/"
+    "mocha": "mocha test/**",
+    "lint": "eslint index.js test/"
   },
   "dependencies": {
-    "debug": "^2.2.0",
-    "q": "^1.1.2",
-    "qs": "^6.2.1",
+    "debug": "^4.3.4",
+    "q": "^1.5.1",
+    "qs": "^6.11.0",
     "request": "^2.75.0"
   },
   "devDependencies": {
-    "chai": "^3.5.0",
-    "eslint": "^3.6.1",
-    "eslint-plugin-mocha": "^4.5.1",
-    "mocha": "^3.1.0",
-    "split": "^0.3.3"
+    "chai": "^4.3.6",
+    "eslint": "^8.19.0",
+    "eslint-plugin-mocha": "^10.0.5",
+    "mocha": "^10.0.0",
+    "split": "^1.0.1"
   },
   "directories": {
     "test": "test"
