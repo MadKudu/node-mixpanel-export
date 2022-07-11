@@ -15,10 +15,10 @@ describe('export', function () {
   it('works with a promise', function () {
     this.timeout(10000);
     return panel.export(options)
-        .then(function (data) {
-          expect(data).to.be.an('array');
-          expect(data[0]).to.have.a.property('event');
-        });
+      .then(function (data) {
+        expect(data).to.be.an('array');
+        expect(data[0]).to.have.a.property('event');
+      });
   });
 
   it('works with a callback', function (done) {
