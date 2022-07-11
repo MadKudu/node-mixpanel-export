@@ -55,9 +55,14 @@ var MixpanelExport = (function () {
       .on('data', function (data) {
         body += data;
       })
-      .on('error', deferred.resolve)
+      .on('error', deferred.reject)
       .on('end', function () {
-        deferred.resolve(self._parseResponse(method, parameters, body));
+        try {
+          var parsedResponse = self._parseResponse(method, parameters, body);
+          deferred.resolve(parsedResponse);
+        } catch (err) {
+          deferred.reject(err);
+        }
       });
     return deferred.promise;
   };
@@ -73,6 +78,7 @@ var MixpanelExport = (function () {
     }
 
     if (method === 'export') {
+      // eslint-disable-next-line
       var step1 = result.replace(new RegExp('\n', 'g'), ',');
       var step2 = '[' + step1 + ']';
       var array = step2.replace(',]', ']');
@@ -88,7 +94,21 @@ var MixpanelExport = (function () {
   };
 
   MixpanelExport.prototype._buildAPIStub = function (method) {
-    var apiStub = (method === 'export') ? `https://data${this.eu ? '-eu' : ''}.mixpanel.com/api/2.0/` : `https://${this.eu ? 'eu.' : ''}mixpanel.com/api/2.0/`;
+    var apiStub;
+    if (method === 'export') {
+      if (this.eu) {
+        apiStub = 'https://data-eu.mixpanel.com/api/2.0/';
+      } else {
+        apiStub = 'https://data.mixpanel.com/api/2.0/';
+      }
+    } else {
+      if (this.eu) {
+        apiStub = 'https://eu.mixpanel.com/api/2.0/';
+      } else {
+        apiStub = 'https://mixpanel.com/api/2.0/';
+      }
+    }
+
     apiStub += (typeof method.join === 'function') ? method.join('/') : method;
     apiStub += '/?';
 
