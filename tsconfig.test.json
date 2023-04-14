@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "declaration": true,
+    "outDir": "./dist/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "module": "commonjs",
+    "lib": [
+      "ES2021"
+    ],
+    "target": "ES2021"
+  },
+  "include": [
+    "./test/"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
+}

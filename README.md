@@ -7,33 +7,19 @@ Simply instantiate the class with your API Key and API Secret and then make call
 ## Installation
 
 ```javascript
-var MixpanelExport = require('node-mixpanel-export');
+import { MixpanelClient } from 'node-mixpanel-export';
 ```
 
 ## Usage Instructions
 
 ```javascript
-panel = new MixpanelExport({
-  api_secret: "my_api_secret"
+const client = new MixpanelClient({
+  apiSecret: "my_api_secret"
 });
 
-panel.export({
+const export = await client.export({
   from_date: "2014-02-28",
   to_date: "2014-03-10",
-}).then(function(data) {
-  console.log(data);
-});
-```
-
-All methods also work with callback
-
-```javascript
-result = panel.engage({
-  from_date: "2014-02-28",
-  to_date: "2014-03-10",
-  born_event: "Rendering items"
-}, function(data) {
-  console.log(data);
 });
 ```
 
