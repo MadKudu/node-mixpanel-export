@@ -1,0 +1,6 @@
+bail: true
+exit: true
+full-trace: true
+require:
+  - ts-node/register
+  - source-map-support/register

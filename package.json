@@ -1,6 +1,6 @@
 {
   "name": "@madkudu/node-mixpanel-export",
-  "version": "1.0.4",
+  "version": "1.1.1",
   "description": "A lightweight SDK for the Mixpanel export API",
   "keywords": [
     "mixpanel",
@@ -13,34 +13,40 @@
   "bugs": {
     "url": "https://github.com/MadKudu/node-mixpanel-export/issues"
   },
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/MadKudu/node-mixpanel-export.git"
   },
   "license": "MIT",
-  "author": "Mike Carter <mike@mcarter.me> (http://mcarter.me/)",
-  "contributors": [
-    "Mike Carter <mike@mcarter.me> (http://mcarter.me/)",
-    "Paul Cothenet <paul@madkudu.com>"
-  ],
   "scripts": {
-    "test": "npm run-script lint && npm run-script mocha",
-    "mocha": "mocha test/**",
-    "lint": "eslint index.js test/"
+    "test": "npm run lint && npm run mocha",
+    "mocha": "mocha test/*.spec.ts",
+    "lint": "eslint --fix 'lib/*.ts' 'test/*.spec.ts'",
+    "format:check": "prettier --check .",
+    "format": "prettier --write .",
+    "build": "tsc",
+    "prebuild": "shx rm -rf ./dist"
   },
   "dependencies": {
-    "debug": "^4.3.4",
-    "q": "^1.5.1",
-    "qs": "^6.11.0",
-    "request": "^2.75.0"
+    "axios": "^1.3.5",
+    "qs": "^6.11.1"
   },
   "devDependencies": {
-    "chai": "^4.3.6",
-    "eslint": "^8.19.0",
-    "eslint-plugin-mocha": "^10.0.5",
-    "mocha": "^10.0.0",
-    "split": "^1.0.1"
+    "@types/chai": "^4.3.4",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.15.11",
+    "@types/qs": "^6.9.7",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
+    "chai": "^4.3.7",
+    "eslint": "^8.27.0",
+    "eslint-config-prettier": "^8.5.0",
+    "mocha": "^10.2.0",
+    "prettier": "2.7.1",
+    "shx": "^0.3.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.8.4"
   },
   "directories": {
     "test": "test"
