@@ -14,6 +14,7 @@ describe('export', function () {
   };
 
   it('should return a stream', async function () {
+    this.timeout(10000);
     const stream: Readable = await client.getExportStream(options);
     expect(stream.readable).to.equal(true);
   });

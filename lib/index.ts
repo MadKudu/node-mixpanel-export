@@ -18,7 +18,7 @@ export default class MixpanelClient {
   async export(
     parameters: Record<string, string | number>
   ): Promise<ExportResult> {
-    return this.get('export', parameters);
+    return this.get('export', parameters) as Promise<ExportResult>;
   }
 
   async getExportStream(
@@ -30,13 +30,13 @@ export default class MixpanelClient {
   async engage(
     parameters?: Record<string, string | number>
   ): Promise<EngageResult> {
-    return this.get('engage', parameters);
+    return this.get('engage', parameters) as Promise<EngageResult>;
   }
 
   async get(
     method: string,
     parameters: Record<string, string | number>
-  ): Promise<any> {
+  ): Promise<unknown> {
     return this._get(method, parameters);
   }
 

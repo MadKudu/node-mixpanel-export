@@ -6,7 +6,7 @@ export type ClientOptions = {
 export type EngageResult = {
   results: {
     $distinct_id: string;
-    $properties: Record<string, any>[];
+    $properties: Record<string, unknown>[];
   }[];
   page: number;
   session_id: string;
@@ -19,7 +19,7 @@ export type EngageResult = {
 
 export type ExportEventResult = {
   event: string;
-  properties: Record<string, any>;
+  properties: Record<string, unknown>;
 };
 
 export type ExportResult = ExportEventResult[];
