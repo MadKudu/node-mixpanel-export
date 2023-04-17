@@ -14,6 +14,7 @@ export type EngageResult = {
   total: number;
   status: string;
   computed_at: string;
+  error: string;
 };
 
 export type ExportEventResult = {

@@ -28,7 +28,7 @@ export default class MixpanelClient {
   }
 
   async engage(
-    parameters: Record<string, string | number>
+    parameters?: Record<string, string | number>
   ): Promise<EngageResult> {
     return this.get('engage', parameters);
   }
