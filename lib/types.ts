@@ -5,7 +5,7 @@ export type ClientOptions = {
    * **Warning**: This authentication method is in the process of being deprecated, Mixpanel claims
    * that it will remain active for legacy customers indefinitely.
    */
-  apiSecret: string;
+  apiSecret?: string;
   /**
    * Mixpanel [Service Account](https://developer.mixpanel.com/reference/service-accounts)
    *
