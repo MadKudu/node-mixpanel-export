@@ -1,22 +1,34 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import qs from 'qs';
 import { Readable } from 'stream';
 import { ClientOptions, EngageResult, ExportResult } from './types';
 
 export default class MixpanelClient {
+  /** Mixpanel Project Secret (legacy auth method) */
   apiSecret: string;
-  account: string;
+  /** Mixpanel Service Account username (recommended auth method) */
+  accountUsername?: string;
+  /** Mixpanel Service Account secret (recommended auth method) */
+  accountSecret?: string;
+  /** Mixpanel project ID, required if using service account auth method */
+  projectId?: string;
+  /** If true, uses the EU Mixpanel API endpoint */
   eu?: boolean;
 
   constructor(opts: ClientOptions) {
-    if (!opts.apiSecret && !opts.account) {
-      throw new Error(
-        'Either a Project Secret (apiSecret) or a Service Account (account) needs to be provided'
-      );
+    if (opts.apiSecret) {
+      this.apiSecret = opts.apiSecret;
+      this.eu = opts.eu;
+      return;
     }
-    this.apiSecret = opts.apiSecret;
-    this.account = opts.account;
-    this.eu = opts.eu;
+    if (opts.accountUsername && opts.accountSecret && opts.projectId) {
+      this.accountUsername = opts.accountUsername;
+      this.accountSecret = opts.accountSecret;
+      this.projectId = opts.projectId;
+      this.eu = opts.eu;
+      return;
+    }
+    throw new Error('Invalid Mixpanel client options');
   }
 
   async export(
@@ -46,14 +58,21 @@ export default class MixpanelClient {
 
   // PRIVATE METHODS:
 
-  _getAuth() {
-    return {
+  _getAuth(): AxiosRequestConfig {
+    const isUsingServiceAccount = this.accountUsername && this.accountSecret;
+    const secret = isUsingServiceAccount
+      ? `${this.accountUsername}:${this.accountSecret}`
+      : this.apiSecret;
+
+    const config: AxiosRequestConfig = {
       headers: {
-        Authorization: `Basic ${Buffer.from(
-          this.account || this.apiSecret
-        ).toString('base64')}`,
+        Authorization: `Basic ${Buffer.from(secret).toString('base64')}`,
       },
     };
+
+    if (isUsingServiceAccount) config.params = { project_id: this.projectId };
+
+    return config;
   }
 
   async _getStream(
