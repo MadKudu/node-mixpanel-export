@@ -7,11 +7,27 @@ export type ClientOptions = {
    */
   apiSecret?: string;
   /**
-   * Mixpanel [Service Account](https://developer.mixpanel.com/reference/service-accounts)
+   * Mixpanel [Service Account](https://developer.mixpanel.com/reference/service-accounts) username
    *
    * Currently recommended authentication method. Uses the format `<serviceaccount_username>:<serviceaccount_secret>`
    */
-  account?: string;
+  accountUsername?: string;
+  /**
+   * Mixpanel [Service Account](https://developer.mixpanel.com/reference/service-accounts) secret
+   *
+   * Currently recommended authentication method. Uses the format `<serviceaccount_username>:<serviceaccount_secret>`
+   */
+  accountSecret?: string;
+  /**
+   * If using Mixpanel [Service Account](https://developer.mixpanel.com/reference/service-accounts) auth method,
+   * this should be set to the Mixpanel project ID usually found in the project URL: `mixpanel.com/project/<project_id>`.
+   *
+   * Usually looks like a number.
+   */
+  projectId?: string;
+  /**
+   * If true, uses the EU Mixpanel API endpoint
+   */
   eu?: boolean;
 };
 
