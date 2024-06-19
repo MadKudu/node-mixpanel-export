@@ -5,13 +5,17 @@ import { ClientOptions, EngageResult, ExportResult } from './types';
 
 export default class MixpanelClient {
   apiSecret: string;
+  account: string;
   eu?: boolean;
 
   constructor(opts: ClientOptions) {
-    if (!opts.apiSecret) {
-      throw new Error('An apiSecret needs to be provided');
+    if (!opts.apiSecret && !opts.account) {
+      throw new Error(
+        'Either a Project Secret (apiSecret) or a Service Account (account) needs to be provided'
+      );
     }
     this.apiSecret = opts.apiSecret;
+    this.account = opts.account;
     this.eu = opts.eu;
   }
 
@@ -42,16 +46,24 @@ export default class MixpanelClient {
 
   // PRIVATE METHODS:
 
+  _getAuth() {
+    return {
+      headers: {
+        Authorization: `Basic ${Buffer.from(
+          this.account || this.apiSecret
+        ).toString('base64')}`,
+      },
+    };
+  }
+
   async _getStream(
     method: string,
     parameters: Record<string, string | number>
   ): Promise<Readable> {
     const requestUrl = this._buildRequestURL(method, parameters);
+    const auth = this._getAuth();
     const response = await axios.get(requestUrl, {
-      auth: {
-        username: this.apiSecret,
-        password: '',
-      },
+      ...auth,
       responseType: 'stream',
     });
     return response.data as Readable;
