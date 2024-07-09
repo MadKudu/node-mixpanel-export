@@ -14,11 +14,14 @@ export default class MixpanelClient {
   projectId?: string;
   /** If true, uses the EU Mixpanel API endpoint */
   eu?: boolean;
+  /** Optional filter for Mixpanel events using segmentation expressions syntax */
+  where?: string;
 
   constructor(opts: ClientOptions) {
     if (opts.apiSecret) {
       this.apiSecret = opts.apiSecret;
       this.eu = opts.eu;
+      this.where = opts.where;
       return;
     }
     if (opts.accountUsername && opts.accountSecret && opts.projectId) {
@@ -26,6 +29,7 @@ export default class MixpanelClient {
       this.accountSecret = opts.accountSecret;
       this.projectId = opts.projectId;
       this.eu = opts.eu;
+      this.where = opts.where;
       return;
     }
     throw new Error('Invalid Mixpanel client options');
@@ -60,6 +64,7 @@ export default class MixpanelClient {
 
   _getAuth(): AxiosRequestConfig {
     const isUsingServiceAccount = this.accountUsername && this.accountSecret;
+    const hasFilter = this.where && this.where.length > 0;
     const secret = isUsingServiceAccount
       ? `${this.accountUsername}:${this.accountSecret}`
       : this.apiSecret;
@@ -68,9 +73,11 @@ export default class MixpanelClient {
       headers: {
         Authorization: `Basic ${Buffer.from(secret).toString('base64')}`,
       },
+      params: {},
     };
 
-    if (isUsingServiceAccount) config.params = { project_id: this.projectId };
+    if (isUsingServiceAccount) config.params.project_id = this.projectId;
+    if (hasFilter) config.params.where = this.where;
 
     return config;
   }
