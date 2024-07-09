@@ -29,6 +29,11 @@ export type ClientOptions = {
    * If true, uses the EU Mixpanel API endpoint
    */
   eu?: boolean;
+  /**
+   * Optional filter for Mixpanel events using [segmentation expressions](https://developer.mixpanel.com/reference/segmentation-expressions)
+   * syntax.
+   */
+  where?: string;
 };
 
 export type EngageResult = {
